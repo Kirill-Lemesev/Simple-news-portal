@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Hyper news</h2>
+    <form action="/news/" method="get">{% csrf_token %}
+    <p>q</p>
+    <input type="text" name="q">
+    </form>
+    {% regroup news by created as news_list %}
+        {% for created in news_list %}
+          <h4>{{ created.grouper }}</h4>
+            <ul>
+                {% for news in created.list %}
+                    <li><a href="/news/{{ news.link }}/">{{ news.title }}</a></li>
+                {% endfor %}
+            </ul>
+    {% endfor %}
+    <a target="_blank" href="/news/create/">Create a new page</a>
+</body>
+</html>
+
